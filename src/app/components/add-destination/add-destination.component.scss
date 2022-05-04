@@ -1,0 +1,18 @@
+.card {
+  box-shadow: none;
+
+  .card-header {
+    .card-title {
+      font-size: 1.714em !important;
+      line-height: 1.45em;
+      margin-top: 30px;
+      margin-bottom: 15px;
+    }
+  }
+}
+mat-form-field {
+  margin-right: 12px;
+}
+.modal-container {
+  min-width: 400px;
+}

@@ -1,0 +1,65 @@
+<div class="row modal-container">
+  <div class="card">
+    <div class="card-header">
+      <h4 class="card-title">Add New Destination</h4>
+    </div>
+    <div class="card-body">
+      <form
+        [formGroup]="addDestinationForm"
+        (ngSubmit)="onSubmitDestination()"
+        novalidate
+      >
+        <div class="row">
+          <div class="col-md-12 pr-1">
+            <div class="form-group">
+              <label>Title</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Title"
+                formControlName="title"
+                required
+                [ngClass]="{ 'is-invalid': submitted && fc.title.errors }"
+              />
+              <div
+                *ngIf="submitted && fc.title.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="fc.title.errors.required">Title is required</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Description</label>
+              <textarea
+                class="form-control textarea"
+                formControlName="description"
+                rows="5"
+              >
+              </textarea>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="update ml-auto mr-auto">
+            <button type="submit" class="btn btn-primary btn-round">
+              Save
+            </button>
+            <button
+              type="submit"
+              class="btn btn-secondary btn-round"
+              mat-button
+              [mat-dialog-close]="true"
+            >
+              Discard
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

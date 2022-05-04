@@ -1,0 +1,28 @@
+.login-main {
+  background-color: #f4f3ef;
+  .login-container {
+    height: 100vh;
+  }
+}
+
+.form-error-message {
+  color: red;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+.card-user {
+  max-width: 500px;
+}
+.btn-round {
+  padding-bottom: 5px;
+  padding-top: 5px;
+  height: 35px;
+  border-radius: 5px;
+}

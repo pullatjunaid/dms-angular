@@ -1,0 +1,80 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header d-flex justify-content-between">
+        <h4 class="card-title">
+          Entries
+          <span class="count-span"> (About {{ dataLength }} results)</span>
+        </h4>
+        <button
+          type="submit"
+          class="btn btn-primary btn-round"
+          (click)="onClickAddNew()"
+        >
+          New
+        </button>
+      </div>
+      <div class="card-body">
+        <div class="mat-elevation-z8">
+          <table mat-table [dataSource]="dataSource">
+            <!-- SL Number Column -->
+            <ng-container matColumnDef="slNo">
+              <th mat-header-cell *matHeaderCellDef>#</th>
+              <td mat-cell *matCellDef="let element; let i = index">
+                {{ i + 1 }}
+              </td>
+            </ng-container>
+
+            <!-- ref id Column -->
+            <ng-container matColumnDef="ref_id">
+              <th mat-header-cell *matHeaderCellDef>Ref ID</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.ref_id }}
+              </td>
+            </ng-container>
+
+            <!-- from whom Column -->
+            <ng-container matColumnDef="from_whom">
+              <th mat-header-cell *matHeaderCellDef>From</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.from_whom }}
+              </td>
+            </ng-container>
+
+            <!-- to whom Column -->
+            <ng-container matColumnDef="to_whom">
+              <th mat-header-cell *matHeaderCellDef>To</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.to_whom }}
+              </td>
+            </ng-container>
+
+            <!-- Date Column -->
+            <ng-container matColumnDef="created_at">
+              <th mat-header-cell *matHeaderCellDef>Date</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.created_at | date }}
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
+          <!-- <div *ngIf="!dataSource || dataSource.length < 1">
+            Not entries found
+          </div> -->
+          <mat-paginator
+            #paginator
+            [length]="dataLength"
+            [pageIndex]="pageNumber - 1"
+            [pageSize]="perPage"
+            [pageSizeOptions]="[10, 20, 30, 50, 100]"
+            (page)="handlePage($event)"
+            showFirstLastButtons
+          >
+          </mat-paginator>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
