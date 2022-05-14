@@ -2,16 +2,17 @@
   <div class="login-container d-flex justify-content-center align-items-center">
     <div class="card card-user">
       <div class="card-header text-center">
-        <h5 class="card-title">Login</h5>
+        <h5 class="card-title table-title">Login</h5>
       </div>
       <div class="card-body">
         <form [formGroup]="loginForm" (ngSubmit)="onSubmitLogin()">
-          <div class="row">
-            <div class="row">
+          <div class="">
+            <div class="">
               <div class="form-group">
-                <label>Username</label>
+                <label for="email-address">Email</label>
                 <input
                   type="text"
+                  name="email-address"
                   class="form-control"
                   placeholder="Username"
                   formControlName="username"
@@ -19,11 +20,12 @@
                 />
               </div>
             </div>
-            <div class="row">
+            <div class="">
               <div class="form-group">
-                <label for="exampleInputEmail1">Email address</label>
+                <label for="password">Password</label>
                 <input
-                  type="email"
+                  name="password"
+                  type="password"
                   class="form-control"
                   placeholder="password"
                   formControlName="password"
@@ -32,12 +34,20 @@
               </div>
             </div>
             <p class="form-error-message">{{ loginErrorMessage }}</p>
-          </div>
-
-          <div class="row">
             <div class="update ml-auto mr-auto">
-              <button type="submit" class="btn btn-primary btn-round">
+              <button
+                type="submit"
+                class="btn btn-primary btn-round d-flex align-items-center"
+              >
                 Login
+                <mat-progress-spinner
+                  class="spinner"
+                  mode="indeterminate"
+                  diameter="20"
+                  color="accent"
+                  *ngIf="isLoadingLogin"
+                >
+                </mat-progress-spinner>
               </button>
             </div>
           </div>

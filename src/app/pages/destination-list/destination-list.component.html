@@ -2,7 +2,7 @@
   <div class="col-md-12">
     <div class="card">
       <div class="card-header d-flex justify-content-between">
-        <h4 class="card-title">
+        <h4 class="card-title table-title">
           Destination List
           <span class="count-span"> (About {{ dataLength }} results)</span>
         </h4>
@@ -14,9 +14,20 @@
           New
         </button>
       </div>
+      <!-- Progressbar start  -->
+      <mat-progress-bar
+        mode="indeterminate"
+        *ngIf="isLoadingFetchDestinations"
+      ></mat-progress-bar>
+      <!-- Progress bar end  -->
       <div class="card-body">
         <div class="mat-elevation-z8">
-          <table mat-table [dataSource]="dataSource">
+          <table
+            mat-table
+            [dataSource]="dataSource"
+            matSort
+            (matSortChange)="sortChange($event)"
+          >
             <!-- SL Number Column -->
             <ng-container matColumnDef="slNo">
               <th mat-header-cell *matHeaderCellDef>#</th>
@@ -27,7 +38,7 @@
 
             <!-- ref id Column -->
             <ng-container matColumnDef="title">
-              <th mat-header-cell *matHeaderCellDef>Title</th>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
               <td mat-cell *matCellDef="let element">
                 {{ element.title }}
               </td>
@@ -35,7 +46,9 @@
 
             <!-- from whom Column -->
             <ng-container matColumnDef="created_at">
-              <th mat-header-cell *matHeaderCellDef>Created At</th>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Created At
+              </th>
               <td mat-cell *matCellDef="let element">
                 {{ element.created_at | date }}
               </td>
@@ -43,9 +56,25 @@
 
             <!-- Description Column  -->
             <ng-container matColumnDef="description">
-              <th mat-header-cell *matHeaderCellDef>Description</th>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Description
+              </th>
               <td mat-cell *matCellDef="let element">
                 {{ element.description }}
+              </td>
+            </ng-container>
+
+            <!-- actions Column  -->
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef>Actions</th>
+              <td mat-cell *matCellDef="let element">
+                <button
+                  mat-button
+                  color="primary"
+                  (click)="onEditDestination(element)"
+                >
+                  Edit
+                </button>
               </td>
             </ng-container>
 

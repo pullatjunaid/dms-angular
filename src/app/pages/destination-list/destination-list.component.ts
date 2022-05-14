@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
+import { Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { AddDestinationComponent } from 'src/app/components/add-destination/add-destination.component';
 import { AddEntryComponent } from 'src/app/components/add-entry/add-entry.component';
@@ -14,12 +15,22 @@ import { DestinationService } from 'src/app/core/services/destination/destinatio
 })
 export class DestinationListComponent implements OnInit {
   dataSource: MatTableDataSource<DestinationModel>;
-  displayedColumns: string[] = ['slNo', 'title', 'created_at', 'description'];
-
+  displayedColumns: string[] = [
+    'slNo',
+    'title',
+    'created_at',
+    'description',
+    'actions',
+  ];
+  isLoadingFetchDestinations: boolean = false;
   dataLength: number = 0;
   pageNumber: number = 1;
   perPage: number = 10;
   isPaginatorInitialized: boolean = false;
+
+  // sort
+  sortColumn: string = '';
+  sortDirection: string = '';
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -29,25 +40,10 @@ export class DestinationListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.submitDestinationForm();
     this.fetchDestinationList();
   }
 
   ngAfterViewInit() {}
-
-  submitDestinationForm(): void {
-    let reqData = {
-      title: 'Vice Chancelor',
-    };
-    this.destinationService.savevDestination(reqData).subscribe(
-      (res) => {
-        console.log(res);
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-  }
 
   public handlePage(e: any) {
     console.log(e);
@@ -62,23 +58,54 @@ export class DestinationListComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       console.log(result);
+      this.fetchDestinationList();
     });
   }
 
-  private fetchDestinationList() {
-    this.destinationService
-      .getDestinationList(this.pageNumber, this.perPage)
-      .subscribe((res: any) => {
-        this.dataSource = new MatTableDataSource(res.data);
-        this.dataLength = res.total;
+  onEditDestination(destination: DestinationModel): void {
+    console.log(destination);
+    let dialogRef = this.dialog.open(AddDestinationComponent, {
+      disableClose: true,
+      data: destination,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === true) this.fetchDestinationList();
+    });
+  }
 
-        if (!this.isPaginatorInitialized) this.initializePaginator();
-      });
+  sortChange(sort: Sort) {
+    console.log(sort);
+    this.sortColumn = sort.active;
+    this.sortDirection = sort.direction;
+    this.fetchDestinationList();
+  }
+
+  private fetchDestinationList() {
+    this.isLoadingFetchDestinations = true;
+    this.destinationService
+      .getDestinationListWithPagination({
+        page: this.pageNumber,
+        perPage: this.perPage,
+        sortKey: this.sortColumn,
+        sortValue: this.sortDirection,
+      })
+      .subscribe(
+        (res: any) => {
+          this.isLoadingFetchDestinations = false;
+          this.dataSource = new MatTableDataSource(res.data);
+          this.dataLength = res.total;
+
+          if (!this.isPaginatorInitialized) this.initializePaginator();
+        },
+        (err) => {
+          this.isLoadingFetchDestinations = false;
+        }
+      );
   }
 
   private initializePaginator() {
     this.paginator.pageSize = this.perPage;
-    this.paginator.pageIndex = this.pageNumber;
+    this.paginator.pageIndex = this.pageNumber - 1;
     this.isPaginatorInitialized = true;
   }
 }

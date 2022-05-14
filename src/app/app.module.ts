@@ -20,6 +20,10 @@ import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { DestinationListComponent } from './pages/destination-list/destination-list.component';
 import { AddDestinationComponent } from './components/add-destination/add-destination.component';
+import { BackupDatabaseComponent } from './pages/backup-database/backup-database.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -28,13 +32,14 @@ import { AddDestinationComponent } from './components/add-destination/add-destin
     LoginComponent,
     AddEntryComponent,
     AddDestinationComponent,
+    BackupDatabaseComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserAnimationsModule,
     AppRoutingModule,
     SidebarModule,
     NavbarModule,
-    ToastrModule.forRoot(),
     FooterModule,
     ReactiveFormsModule,
     HttpClientModule,
@@ -43,6 +48,9 @@ import { AddDestinationComponent } from './components/add-destination/add-destin
     MatNativeDateModule,
     MatFormFieldModule,
     MatRippleModule,
+    ToastrModule.forRoot(),
+    MatProgressSpinnerModule,
+    MatTableModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

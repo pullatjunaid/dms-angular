@@ -4,7 +4,10 @@ import { EntriesService } from 'src/app/core/services/entries/entries.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEntryComponent } from 'src/app/components/add-entry/add-entry.component';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, Sort } from '@angular/material/sort';
+import { customTosters } from 'src/app/core/utils/toaster';
+import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
+import { EntryModel } from 'src/app/core/models/entry';
 
 export interface Entry {
   ref_id: string;
@@ -15,6 +18,7 @@ export interface Entry {
   styleUrls: ['./entries.component.scss'],
 })
 export class EntriesComponent implements OnInit {
+  filterForm: FormGroup;
   dataSource: MatTableDataSource<Entry>;
   displayedColumns: string[] = [
     'slNo',
@@ -22,38 +26,96 @@ export class EntriesComponent implements OnInit {
     'from_whom',
     'to_whom',
     'created_at',
+    // 'subject',
+    'actions',
   ];
-
+  isLoadingFetchEntries: boolean = false;
   dataLength: number = 0;
   pageNumber: number = 1;
   perPage: number = 10;
   isPaginatorInitialized: boolean = false;
 
+  // sort
+  sortColumn: string = '';
+  sortDirection: string = '';
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private entryService: EntriesService, public dialog: MatDialog) {}
+  constructor(
+    private entryService: EntriesService,
+    public dialog: MatDialog,
+    private customToaster: customTosters
+  ) {}
 
   ngOnInit(): void {
+    this.filterForm = new FormGroup({
+      searchKey: new FormControl('', []),
+    });
+
     this.fetchEntriesList();
+  }
+
+  get ff(): { [key: string]: AbstractControl } {
+    return this.filterForm.controls;
   }
 
   ngAfterViewInit() {}
 
-  fetchEntriesList() {
-    this.entryService
-      .getEntriesList(this.pageNumber, this.perPage)
-      .subscribe((res: any) => {
-        this.dataSource = new MatTableDataSource(res.data);
-        this.dataLength = res.total;
-
-        if (!this.isPaginatorInitialized) this.initializePaginator();
-      });
-  }
-
   onClickAddNew(): void {
-    this.dialog.open(AddEntryComponent, {
+    let dialogRef = this.dialog.open(AddEntryComponent, {
       disableClose: true,
     });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result);
+      this.fetchEntriesList();
+    });
+  }
+
+  applyFilter(ev: Event) {
+    this.fetchEntriesList();
+  }
+
+  onEditEntry(entryData: EntryModel): void {
+    console.log(entryData);
+    let dialogRef = this.dialog.open(AddEntryComponent, {
+      disableClose: true,
+      data: entryData,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result);
+      if (result === true) this.fetchEntriesList();
+    });
+  }
+
+  sortChange(sort: Sort) {
+    console.log(sort);
+    this.sortColumn = sort.active;
+    this.sortDirection = sort.direction;
+    this.fetchEntriesList();
+  }
+
+  private fetchEntriesList() {
+    this.isLoadingFetchEntries = true;
+    this.entryService
+      .getEntriesList({
+        page: this.pageNumber,
+        perPage: this.perPage,
+        searchKey: this.ff.searchKey.value,
+        sortKey: this.sortColumn,
+        sortValue: this.sortDirection,
+      })
+      .subscribe(
+        (res: any) => {
+          this.isLoadingFetchEntries = false;
+          this.dataSource = new MatTableDataSource(res.data);
+          this.dataLength = res.total;
+
+          if (!this.isPaginatorInitialized) this.initializePaginator();
+        },
+        (err) => {
+          this.isLoadingFetchEntries = false;
+        }
+      );
   }
 
   public handlePage(e: any) {

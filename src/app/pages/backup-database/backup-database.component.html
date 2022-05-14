@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header d-flex justify-content-between">
+        <h4 class="card-title table-title">Backup Database</h4>
+      </div>
+      <div class="card-body">
+        <button
+          type="submit"
+          class="btn btn-primary btn-round d-flex align-items-center"
+          (click)="onClickBackupNow()"
+        >
+          {{ loadingBackup ? "Backuping" : "Backup Now" }}
+          <mat-progress-spinner
+            class="spinner ml-5"
+            mode="indeterminate"
+            diameter="20"
+            color="accent"
+            *ngIf="loadingBackup"
+          >
+          </mat-progress-spinner>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,12 +1,22 @@
+.modal-container {
+  min-width: 500px;
+}
+
 .card {
   box-shadow: none;
+  margin-bottom: 0;
 
   .card-header {
+    padding-top: 0;
     .card-title {
       font-size: 1.714em !important;
       line-height: 1.45em;
       margin-top: 30px;
       margin-bottom: 15px;
+      padding: 0;
+    }
+    .new-entry-id {
+      margin: 0;
     }
   }
 }

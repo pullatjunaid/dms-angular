@@ -43,6 +43,7 @@
               </textarea>
             </div>
           </div>
+          <p class="form-error-message">{{ addDestinationError }}</p>
         </div>
         <div class="row">
           <div class="update ml-auto mr-auto">
@@ -50,10 +51,10 @@
               Save
             </button>
             <button
-              type="submit"
+              type="button"
               class="btn btn-secondary btn-round"
               mat-button
-              [mat-dialog-close]="true"
+              [mat-dialog-close]="false"
             >
               Discard
             </button>

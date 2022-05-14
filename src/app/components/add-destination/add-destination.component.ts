@@ -1,13 +1,15 @@
 import { formatDate } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DestinationModel } from 'src/app/core/models/destination';
 import { DestinationService } from 'src/app/core/services/destination/destination.service';
+import { customTosters } from 'src/app/core/utils/toaster';
 
 @Component({
   selector: 'app-add-destination',
@@ -21,14 +23,25 @@ export class AddDestinationComponent implements OnInit {
   submitted = false;
   constructor(
     private destinationService: DestinationService,
-    private dialogRef: MatDialogRef<AddDestinationComponent>
+    private dialogRef: MatDialogRef<AddDestinationComponent>,
+    private customToster: customTosters,
+    @Inject(MAT_DIALOG_DATA) public data: DestinationModel
   ) {}
 
   ngOnInit(): void {
     this.addDestinationForm = new FormGroup({
-      title: new FormControl('', [Validators.required]),
-      description: new FormControl('', []),
+      title: new FormControl(this.data?.title ? this.data.title : '', [
+        Validators.required,
+      ]),
+      description: new FormControl(
+        this.data?.description ? this.data.description : '',
+        []
+      ),
     });
+  }
+
+  ngOnDestroy() {
+    console.log('hikk');
   }
 
   get fc(): { [key: string]: AbstractControl } {
@@ -45,9 +58,38 @@ export class AddDestinationComponent implements OnInit {
       title: this.fc.title.value,
       description: this.fc.description.value,
     };
-    this.destinationService.savevDestination(reqData).subscribe((res) => {
-      console.log(res);
-      this.dialogRef.close(true);
-    });
+    if (this.data?.id) {
+      this.destinationService
+        .updateDestination(reqData, this.data?.id)
+        .subscribe(
+          (res) => {
+            this.customToster.simpleToaster('Destination updated successfully');
+            this.dialogRef.close(true);
+          },
+          (err) => {
+            this.addDestinationError = '';
+            if (err.error?.errors) {
+              Object.keys(err.error.errors).forEach((key: any, value: any) => {
+                this.addDestinationError += '' + err.error.errors[key];
+              });
+            }
+          }
+        );
+    } else {
+      this.destinationService.saveDestination(reqData).subscribe(
+        (res) => {
+          this.customToster.simpleToaster('Destination created successfully');
+          this.dialogRef.close(true);
+        },
+        (err) => {
+          this.addDestinationError = '';
+          if (err.error?.errors) {
+            Object.keys(err.error.errors).forEach((key: any, value: any) => {
+              this.addDestinationError += '' + err.error.errors[key];
+            });
+          }
+        }
+      );
+    }
   }
 }

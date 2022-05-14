@@ -5,12 +5,30 @@ tr.mat-row,
 tr.mat-footer-row {
   height: 35px;
 }
-.card-title {
-  font-size: 1.714em !important;
-  line-height: 1.45em;
-  margin-top: 30px;
-  margin-bottom: 15px;
-  .count-span {
-    font-size: 0.6em;
-  }
+.td-ref-id {
+  cursor: pointer;
+  width: 170px;
+}
+
+.td-from-whom {
+  width: 200px;
+}
+
+.td-to-whom {
+  width: 200px;
+}
+
+.td-subject {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  width: 285px;
+}
+.mat-row:nth-child(even) {
+}
+
+.mat-row:nth-child(odd) {
+  background-color: #bdd5f9;
 }
