@@ -8,6 +8,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { customTosters } from 'src/app/core/utils/toaster';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { EntryModel } from 'src/app/core/models/entry';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 
 export interface Entry {
   ref_id: string;
@@ -44,7 +45,8 @@ export class EntriesComponent implements OnInit {
   constructor(
     private entryService: EntriesService,
     public dialog: MatDialog,
-    private customToaster: customTosters
+    private customToaster: customTosters,
+    public authService: AuthService
   ) {}
 
   ngOnInit(): void {

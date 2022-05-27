@@ -1,31 +1,23 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { AddDestinationComponent } from 'src/app/components/add-destination/add-destination.component';
-import { AddEntryComponent } from 'src/app/components/add-entry/add-entry.component';
-import { DestinationModel } from 'src/app/core/models/destination';
-import { AuthService } from 'src/app/core/services/auth/auth.service';
-import { DestinationService } from 'src/app/core/services/destination/destination.service';
+import { AddAppUserComponent } from 'src/app/components/add-app-user/add-app-user.component';
+import { UserModel } from 'src/app/core/models/user';
+import { UserService } from 'src/app/core/services/user/user-service.service';
 
 @Component({
-  selector: 'app-destination-list',
-  templateUrl: './destination-list.component.html',
-  styleUrls: ['./destination-list.component.scss'],
+  selector: 'app-app-users-list',
+  templateUrl: './app-users-list.component.html',
+  styleUrls: ['./app-users-list.component.scss'],
 })
-export class DestinationListComponent implements OnInit {
+export class AppUsersListComponent implements OnInit {
   filterForm: FormGroup;
-  dataSource: MatTableDataSource<DestinationModel>;
-  displayedColumns: string[] = [
-    'slNo',
-    'title',
-    'created_at',
-    'description',
-    'actions',
-  ];
-  isLoadingFetchDestinations: boolean = false;
+  dataSource: MatTableDataSource<UserModel>;
+  displayedColumns: string[] = ['slNo', 'name', 'email', 'actions'];
+  isLoadingFetchAppUsers: boolean = false;
   dataLength: number = 0;
   pageNumber: number = 1;
   perPage: number = 10;
@@ -37,17 +29,13 @@ export class DestinationListComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(
-    private destinationService: DestinationService,
-    public dialog: MatDialog,
-    public authService: AuthService
-  ) {}
+  constructor(private userService: UserService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.filterForm = new FormGroup({
       searchKey: new FormControl('', []),
     });
-    this.fetchDestinationList();
+    this.fetchAppUsersList();
   }
 
   get ff(): { [key: string]: AbstractControl } {
@@ -60,31 +48,30 @@ export class DestinationListComponent implements OnInit {
     console.log(e);
     this.pageNumber = e.pageIndex + 1;
     this.perPage = e.pageSize;
-    this.fetchDestinationList();
+    this.fetchAppUsersList();
   }
 
   applyFilter(ev: Event) {
-    this.fetchDestinationList();
+    this.fetchAppUsersList();
   }
 
   onClickAddNew(): void {
-    let dialogRef = this.dialog.open(AddDestinationComponent, {
+    let dialogRef = this.dialog.open(AddAppUserComponent, {
       disableClose: true,
     });
     dialogRef.afterClosed().subscribe((result) => {
       console.log(result);
-      this.fetchDestinationList();
+      if (result === true) this.fetchAppUsersList();
     });
   }
 
-  onEditDestination(destination: DestinationModel): void {
-    console.log(destination);
-    let dialogRef = this.dialog.open(AddDestinationComponent, {
+  onEditDestination(destination: UserModel): void {
+    let dialogRef = this.dialog.open(AddAppUserComponent, {
       disableClose: true,
       data: destination,
     });
     dialogRef.afterClosed().subscribe((result) => {
-      if (result === true) this.fetchDestinationList();
+      if (result === true) this.fetchAppUsersList();
     });
   }
 
@@ -92,13 +79,13 @@ export class DestinationListComponent implements OnInit {
     console.log(sort);
     this.sortColumn = sort.active;
     this.sortDirection = sort.direction;
-    this.fetchDestinationList();
+    this.fetchAppUsersList();
   }
 
-  private fetchDestinationList() {
-    this.isLoadingFetchDestinations = true;
-    this.destinationService
-      .getDestinationListWithPagination({
+  private fetchAppUsersList() {
+    this.isLoadingFetchAppUsers = true;
+    this.userService
+      .getUsersListWithPagination({
         page: this.pageNumber,
         perPage: this.perPage,
         searchKey: this.ff.searchKey.value,
@@ -107,14 +94,14 @@ export class DestinationListComponent implements OnInit {
       })
       .subscribe(
         (res: any) => {
-          this.isLoadingFetchDestinations = false;
+          this.isLoadingFetchAppUsers = false;
           this.dataSource = new MatTableDataSource(res.data);
           this.dataLength = res.total;
 
           if (!this.isPaginatorInitialized) this.initializePaginator();
         },
         (err) => {
-          this.isLoadingFetchDestinations = false;
+          this.isLoadingFetchAppUsers = false;
         }
       );
   }

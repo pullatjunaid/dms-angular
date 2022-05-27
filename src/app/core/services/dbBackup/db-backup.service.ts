@@ -9,6 +9,6 @@ export class DbBackupService {
   constructor(private http: HttpClient) {}
 
   getDbBackup() {
-    return this.http.get(`${this.baseUrl}/dbBackup`);
+    return this.http.get(`${this.baseUrl}/backup-db`);
   }
 }

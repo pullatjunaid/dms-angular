@@ -23,4 +23,13 @@ export class AuthService {
   logout() {
     return this.http.get(`${this.baseUrl}/logout`);
   }
+
+  isAdmin() {
+    let userDetails;
+    userDetails = localStorage.getItem('userDetails');
+    const parsedData = JSON.parse(userDetails ? userDetails : '');
+    console.log(parsedData);
+    if (parsedData?.user_type === 'admin') return true;
+    else return false;
+  }
 }

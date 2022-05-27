@@ -19,11 +19,12 @@ export class DestinationService {
   getDestinationListWithPagination({
     page = 1,
     perPage = 10,
+    searchKey = '',
     sortKey = '',
     sortValue = '',
   } = {}) {
     return this.http.get(
-      `${this.baseUrl}/destination?page=${page}&per_page=${perPage}&sortKey=${sortKey}&sortValue=${sortValue}`
+      `${this.baseUrl}/destination?page=${page}&per_page=${perPage}&searchKey=${searchKey}&sortKey=${sortKey}&sortValue=${sortValue}`
     );
   }
 

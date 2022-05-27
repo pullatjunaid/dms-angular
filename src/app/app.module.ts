@@ -24,6 +24,9 @@ import { BackupDatabaseComponent } from './pages/backup-database/backup-database
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { MatTableModule } from '@angular/material/table';
+import { AddAppUserComponent } from './components/add-app-user/add-app-user.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { AppPermissionDirective } from './core/directives/app-permission.directive';
 
 @NgModule({
   declarations: [
@@ -34,6 +37,8 @@ import { MatTableModule } from '@angular/material/table';
     AddDestinationComponent,
     BackupDatabaseComponent,
     DashboardComponent,
+    AddAppUserComponent,
+    AppPermissionDirective,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -51,9 +56,11 @@ import { MatTableModule } from '@angular/material/table';
     ToastrModule.forRoot(),
     MatProgressSpinnerModule,
     MatTableModule,
+    MatCheckboxModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  exports: [AppPermissionDirective],
 })
 export class AppModule {}

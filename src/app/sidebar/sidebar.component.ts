@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../core/services/auth/auth.service';
 
 export interface RouteInfo {
   path: string;
@@ -8,18 +9,12 @@ export interface RouteInfo {
 }
 
 export const ROUTES: RouteInfo[] = [
-  { path: '/dashboard', title: 'Dashboard', icon: 'nc-bank', class: '' },
-  { path: '/entries', title: 'Entries', icon: 'nc-tile-56', class: '' },
+  { path: '/dashboard', title: 'Dashboard', icon: 'dashboard', class: '' },
+  { path: '/entries', title: 'Entries', icon: 'list', class: '' },
   {
     path: '/destination',
     title: 'Destination',
-    icon: 'nc-caps-small',
-    class: '',
-  },
-  {
-    path: '/backup-database',
-    title: 'Backup Database',
-    icon: 'nc-tile-56',
+    icon: 'location_on',
     class: '',
   },
 ];
@@ -31,9 +26,24 @@ export const ROUTES: RouteInfo[] = [
 })
 export class SidebarComponent implements OnInit {
   menuItems: any[] = [];
-  constructor() {}
+  constructor(public authService: AuthService) {}
 
   ngOnInit(): void {
+    if (this.authService.isAdmin()) {
+      ROUTES.push({
+        path: '/backup-database',
+        title: 'Backup Database',
+        icon: 'backup',
+        class: '',
+      });
+      ROUTES.push({
+        path: '/app-users',
+        title: 'App Users',
+        icon: 'supervised_user_circle',
+        class: '',
+      });
+    }
+
     this.menuItems = ROUTES.filter((menuItem) => menuItem);
   }
 }

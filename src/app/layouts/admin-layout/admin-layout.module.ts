@@ -17,10 +17,16 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSortModule } from '@angular/material/sort';
+import { AppUsersListComponent } from 'src/app/pages/app-users-list/app-users-list.component';
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  entryComponents: [EntriesComponent, DestinationListComponent],
+  entryComponents: [
+    EntriesComponent,
+    DestinationListComponent,
+    AppUsersListComponent,
+  ],
+
   imports: [
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
@@ -39,6 +45,10 @@ import { MatSortModule } from '@angular/material/sort';
     MatProgressBarModule,
     MatSortModule,
   ],
-  declarations: [EntriesComponent, DestinationListComponent],
+  declarations: [
+    EntriesComponent,
+    DestinationListComponent,
+    AppUsersListComponent,
+  ],
 })
 export class AdminLayoutModule {}

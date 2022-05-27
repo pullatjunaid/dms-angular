@@ -18,8 +18,10 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     // this.authService.doSignup().subscribe((res) => {});
     this.loginForm = new FormGroup({
-      username: new FormControl('admin@gmail.com', [Validators.required]),
-      password: new FormControl('admin123', [Validators.required]),
+      // username: new FormControl('admin@gmail.com', [Validators.required]),
+      // password: new FormControl('admin123', [Validators.required]),
+      username: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required]),
     });
   }
 
@@ -37,6 +39,7 @@ export class LoginComponent implements OnInit {
         (res: any) => {
           this.isLoadingLogin = false;
           localStorage.setItem('api_token', res?.api_token);
+          localStorage.setItem('userDetails', JSON.stringify(res?.user));
           // this.router.navigate(['/dashboard']);
           window.location.href = '/dashboard';
         },
