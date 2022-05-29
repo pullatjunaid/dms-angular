@@ -28,7 +28,6 @@ export class AuthService {
     let userDetails;
     userDetails = localStorage.getItem('userDetails');
     const parsedData = JSON.parse(userDetails ? userDetails : '');
-    console.log(parsedData);
     if (parsedData?.user_type === 'admin') return true;
     else return false;
   }

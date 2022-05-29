@@ -9,6 +9,7 @@ import { customTosters } from 'src/app/core/utils/toaster';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { EntryModel } from 'src/app/core/models/entry';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
+import { ViewEntryComponent } from 'src/app/components/view-entry/view-entry.component';
 
 export interface Entry {
   ref_id: string;
@@ -87,6 +88,14 @@ export class EntriesComponent implements OnInit {
       console.log(result);
       if (result === true) this.fetchEntriesList();
     });
+  }
+
+  onViewEntry(entryData?: EntryModel): void {
+    let dialogRef = this.dialog.open(ViewEntryComponent, {
+      data: entryData,
+      backdropClass: 'view-entry-modal',
+    });
+    dialogRef.afterClosed().subscribe((result) => {});
   }
 
   sortChange(sort: Sort) {

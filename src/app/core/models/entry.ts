@@ -1,5 +1,6 @@
 export interface EntryModel {
   id: any;
+  ref_id: string;
   from_date: string;
   to_date: string;
   from_whom: {
@@ -11,4 +12,5 @@ export interface EntryModel {
     title: string;
   };
   subject: string;
+  created_at: string;
 }

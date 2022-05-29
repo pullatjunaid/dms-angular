@@ -30,7 +30,6 @@
                 class="form-control"
                 placeholder="Email Address"
                 formControlName="email"
-                ngModel
                 email="true"
                 required
                 [ngClass]="{ 'is-invalid': submitted && fc.email.errors }"
@@ -50,7 +49,7 @@
           </div>
         </div>
 
-        <div class="row">
+        <div class="row" *ngIf="!data?.id">
           <div class="col-md-6 pr-1">
             <div class="form-group">
               <label>Password <span class="mandatory-text">*</span></label>
@@ -69,6 +68,12 @@
                 <div *ngIf="fc.password.errors.required">
                   Password is required
                 </div>
+              </div>
+              <div
+                class="form-error-message"
+                *ngIf="addUserFormError?.password"
+              >
+                {{ addUserFormError.password }}
               </div>
             </div>
           </div>

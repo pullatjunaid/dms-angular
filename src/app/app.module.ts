@@ -27,6 +27,7 @@ import { MatTableModule } from '@angular/material/table';
 import { AddAppUserComponent } from './components/add-app-user/add-app-user.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AppPermissionDirective } from './core/directives/app-permission.directive';
+import { ViewEntryComponent } from './components/view-entry/view-entry.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { AppPermissionDirective } from './core/directives/app-permission.directi
     DashboardComponent,
     AddAppUserComponent,
     AppPermissionDirective,
+    ViewEntryComponent,
   ],
   imports: [
     BrowserAnimationsModule,

@@ -115,6 +115,14 @@
                 >
                   Edit
                 </button>
+                <button
+                  mat-button
+                  color="primary"
+                  (click)="onViewEntry(element)"
+                  *ngIf="authService.isAdmin()"
+                >
+                  View
+                </button>
               </td>
             </ng-container>
 
