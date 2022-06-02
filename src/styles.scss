@@ -29,7 +29,7 @@ body {
   padding-bottom: 5px;
   padding-top: 5px;
   height: 35px;
-  border-radius: 5px;
+  border-radius: 3px !important;
 }
 
 .card-title {
@@ -76,4 +76,22 @@ body {
 .mat-dialog-container {
   max-height: 90vh !important;
   max-width: 700px !important;
+}
+
+.search-input {
+  padding: 5px 10px 5px 10px !important;
+  background: rgba(9, 30, 66, 0.04) !important;
+}
+
+.filter-btn {
+  background: rgba(9, 30, 66, 0.04) !important;
+  color: #000 !important;
+  border: 1px solid #dddddd !important;
+  border-radius: 4px;
+  height: 29px;
+  padding: 0px 20px 0px 20px;
+}
+
+.print-btn {
+  margin-right: 5px;
 }

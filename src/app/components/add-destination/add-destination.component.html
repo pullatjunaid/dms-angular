@@ -1,7 +1,7 @@
-<div class="row modal-container">
-  <div class="card">
+<div class="modal-container">
+  <div class="card p-0">
     <div class="card-header">
-      <h4 class="card-title">Add New Destination</h4>
+      <h4 class="card-title m-0">Add New Destination</h4>
     </div>
     <div class="card-body">
       <form
@@ -26,6 +26,30 @@
                 class="invalid-feedback"
               >
                 <div *ngIf="fc.title.errors.required">Title is required</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 pr-1">
+            <div class="form-group">
+              <label>Short Name</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Short Name"
+                formControlName="shortname"
+                required
+                [ngClass]="{ 'is-invalid': submitted && fc.shortname.errors }"
+              />
+              <div
+                *ngIf="submitted && fc.shortname.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="fc.shortname.errors.required">
+                  Short Name is required
+                </div>
               </div>
             </div>
           </div>

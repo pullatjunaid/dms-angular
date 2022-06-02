@@ -11,5 +11,15 @@ tr.mat-footer-row {
 }
 
 .mat-row:nth-child(odd) {
-  background-color: #ffed95;
+  background-color: #bdd5f9;
+}
+
+.action-btn {
+  min-width: 40px;
+  padding: 0px 0px;
+  text-align: start;
+}
+
+.mat-column-user_type {
+  max-width: 60px;
 }

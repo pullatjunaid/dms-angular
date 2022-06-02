@@ -46,7 +46,7 @@ export class ViewEntryComponent implements OnInit {
         this.data.from_whom.title
       }</div>
       <div style="margin-bottom: 15px">
-        <b>To:</b> ${this.data.from_whom.title}
+        <b>To:</b> ${this.data.to_whom.title}
       </div>
       <div style="margin-bottom: 15px; font-size: 0.9em; line-height: 22px">
         <b style="font-size: 1em">Subject:</b>

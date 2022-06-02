@@ -5,6 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { AddAppUserComponent } from 'src/app/components/add-app-user/add-app-user.component';
+import { ResetPasswordComponent } from 'src/app/components/reset-password/reset-password.component';
 import { UserModel } from 'src/app/core/models/user';
 import { UserService } from 'src/app/core/services/user/user-service.service';
 
@@ -16,7 +17,13 @@ import { UserService } from 'src/app/core/services/user/user-service.service';
 export class AppUsersListComponent implements OnInit {
   filterForm: FormGroup;
   dataSource: MatTableDataSource<UserModel>;
-  displayedColumns: string[] = ['slNo', 'name', 'email', 'actions'];
+  displayedColumns: string[] = [
+    'slNo',
+    'name',
+    'email',
+    'user_type',
+    'actions',
+  ];
   isLoadingFetchAppUsers: boolean = false;
   dataLength: number = 0;
   pageNumber: number = 1;
@@ -65,10 +72,10 @@ export class AppUsersListComponent implements OnInit {
     });
   }
 
-  onEditDestination(destination: UserModel): void {
+  onEditappUser(user: UserModel): void {
     let dialogRef = this.dialog.open(AddAppUserComponent, {
       disableClose: true,
-      data: destination,
+      data: user,
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result === true) this.fetchAppUsersList();
@@ -80,6 +87,31 @@ export class AppUsersListComponent implements OnInit {
     this.sortColumn = sort.active;
     this.sortDirection = sort.direction;
     this.fetchAppUsersList();
+  }
+
+  getUserTypeText(userType: string) {
+    switch (userType) {
+      case 'administrator':
+        return 'Administrator';
+      case 'end_user':
+        return 'End User';
+      case 'modifier':
+        return 'Modifier';
+      case 'viewer':
+        return 'Viewer';
+      default:
+        return '';
+    }
+  }
+
+  onResetPassword(user: UserModel) {
+    let dialogRef = this.dialog.open(ResetPasswordComponent, {
+      disableClose: true,
+      data: user,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === true) this.fetchAppUsersList();
+    });
   }
 
   private fetchAppUsersList() {

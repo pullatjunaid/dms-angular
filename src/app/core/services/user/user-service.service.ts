@@ -8,14 +8,6 @@ export class UserService {
   baseUrl = 'http://127.0.0.1:8000/api';
   constructor(private http: HttpClient) {}
 
-  saveUser(reqData: any) {
-    return this.http.post(`${this.baseUrl}/app-users`, reqData);
-  }
-
-  updateAppUser(reqData: any, id: any) {
-    return this.http.put(`${this.baseUrl}/app-users/${id}`, reqData);
-  }
-
   getUsersListWithPagination({
     page = 1,
     perPage = 10,
@@ -26,5 +18,20 @@ export class UserService {
     return this.http.get(
       `${this.baseUrl}/app-users?page=${page}&per_page=${perPage}&searchKey=${searchKey}&sortKey=${sortKey}&sortValue=${sortValue}`
     );
+  }
+
+  resetPassword(reqData: any, id: any) {
+    return this.http.put(
+      `${this.baseUrl}/app-users-reset-password/${id}`,
+      reqData
+    );
+  }
+
+  saveUser(reqData: any) {
+    return this.http.post(`${this.baseUrl}/app-users`, reqData);
+  }
+
+  updateAppUser(reqData: any, id: any) {
+    return this.http.put(`${this.baseUrl}/app-users/${id}`, reqData);
   }
 }

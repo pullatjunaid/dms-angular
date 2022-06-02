@@ -40,6 +40,7 @@ export class LoginComponent implements OnInit {
           this.isLoadingLogin = false;
           localStorage.setItem('api_token', res?.api_token);
           localStorage.setItem('userDetails', JSON.stringify(res?.user));
+          localStorage.setItem('permissions', JSON.stringify(res?.permissions));
           // this.router.navigate(['/dashboard']);
           window.location.href = '/dashboard';
         },

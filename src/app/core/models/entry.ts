@@ -6,10 +6,12 @@ export interface EntryModel {
   from_whom: {
     id: string;
     title: string;
+    shortname: string;
   };
   to_whom: {
     id: string;
     title: string;
+    shortname: string;
   };
   subject: string;
   created_at: string;

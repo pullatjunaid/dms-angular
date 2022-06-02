@@ -7,10 +7,8 @@ import { HttpClient } from '@angular/common/http';
 export class AuthService {
   constructor(private http: HttpClient) {}
   baseUrl = 'http://127.0.0.1:8000/api';
+  public isLoggedIn = !!localStorage.getItem('api_token');
 
-  login(data: { username: string; password: string }) {
-    return this.http.post(`${this.baseUrl}/login`, data);
-  }
   doSignup() {
     return this.http.post(`${this.baseUrl}/register-user`, {
       email: 'admin@gmail.com',
@@ -20,15 +18,23 @@ export class AuthService {
     });
   }
 
-  logout() {
-    return this.http.get(`${this.baseUrl}/logout`);
+  getAccessToken() {
+    return localStorage.getItem('api_token');
   }
 
   isAdmin() {
     let userDetails;
     userDetails = localStorage.getItem('userDetails');
     const parsedData = JSON.parse(userDetails ? userDetails : '');
-    if (parsedData?.user_type === 'admin') return true;
+    if (parsedData?.user_type === 'administrator') return true;
     else return false;
+  }
+
+  login(data: { username: string; password: string }) {
+    return this.http.post(`${this.baseUrl}/login`, data);
+  }
+
+  logout() {
+    return this.http.get(`${this.baseUrl}/logout`);
   }
 }

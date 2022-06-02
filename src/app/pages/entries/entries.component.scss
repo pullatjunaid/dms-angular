@@ -17,9 +17,19 @@ tr.mat-footer-row {
 .td-to-whom {
   width: 200px;
 }
-
+.mat-column-created_at {
+  width: 110px;
+}
+.mat-column-actions {
+  width: 190px;
+}
 .td-sl-no {
   width: 60px;
+}
+
+.action-btn {
+  min-width: 40px;
+  max-width: 40px;
 }
 
 .td-subject {
@@ -35,4 +45,8 @@ tr.mat-footer-row {
 
 .mat-row:nth-child(odd) {
   background-color: #bdd5f9;
+}
+
+.date-selector {
+  margin-right: 5px;
 }

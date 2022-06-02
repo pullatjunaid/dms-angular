@@ -60,7 +60,9 @@ export class AddEntryComponent implements OnInit {
         this.data?.to_whom?.id ? this.data.to_whom.id : '',
         [Validators.required]
       ),
-      subject: new FormControl(this.data?.subject ? this.data.subject : '', []),
+      subject: new FormControl(this.data?.subject ? this.data.subject : '', [
+        Validators.required,
+      ]),
     });
 
     this.fetchDestinationList();

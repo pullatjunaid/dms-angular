@@ -1,7 +1,8 @@
 export interface DestinationModel {
-  id: string;
-  title: string;
-  description: string;
   created_at: Date;
+  description: string;
+  id: string;
+  shortname: string;
+  title: string;
   updated_at: Date;
 }

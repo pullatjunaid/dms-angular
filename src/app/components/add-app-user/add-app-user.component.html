@@ -1,9 +1,9 @@
-<div class="row modal-container">
+<div class="modal-container">
   <div class="card">
-    <div class="card-header">
-      <h4 class="card-title">Add New App User</h4>
+    <div class="card-header p-0">
+      <h4 class="card-title m-0">Add New App User</h4>
     </div>
-    <div class="card-body">
+    <div class="card-body p-0">
       <form [formGroup]="addUserForm" (ngSubmit)="onSubmitAppUser()" novalidate>
         <div class="row">
           <div class="col-md-6 pr-1">
@@ -77,6 +77,40 @@
               </div>
             </div>
           </div>
+          <div class="col-md-6 pr-1">
+            <div class="form-group">
+              <label
+                >Confirm Password <span class="mandatory-text">*</span></label
+              >
+              <input
+                [type]="passwordInputType"
+                class="form-control"
+                placeholder="Confirm Password"
+                formControlName="password_confirmation"
+                required
+                [ngClass]="{
+                  'is-invalid': submitted && fc.password_confirmation.errors
+                }"
+              />
+              <div
+                *ngIf="submitted && fc.password_confirmation.errors"
+                class="invalid-feedback"
+              >
+                <!-- <div *ngIf="fc.password_confirmation.errors.required">
+                  Confirm Password
+                </div> -->
+                <div *ngIf="fc.password_confirmation.errors.NotEqual">
+                  Password and confirm password fields value must be matched
+                </div>
+              </div>
+              <div
+                class="form-error-message"
+                *ngIf="addUserFormError?.password"
+              >
+                {{ addUserFormError.password }}
+              </div>
+            </div>
+          </div>
           <!-- <div class="col-md-6">
             <div class="form-group">
               <mat-checkbox
@@ -88,6 +122,34 @@
               </mat-checkbox>
             </div>
           </div> -->
+        </div>
+
+        <!-- user type  -->
+        <div class="row">
+          <div class="col-md-6 pl-1">
+            <div class="form-group">
+              <label>User Type <span class="mandatory-text">*</span></label>
+
+              <select
+                class="custom-select form-control"
+                formControlName="userType"
+                required
+                [ngClass]="{ 'is-invalid': submitted && fc.userType.errors }"
+              >
+                <option selected value="">Choose...</option>
+                <option value="administrator">Administrator</option>
+                <option value="end_user">End User</option>
+                <option value="modifier">Modifier</option>
+                <option value="viewer">Viewer</option>
+              </select>
+              <div
+                *ngIf="submitted && fc.userType.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="fc.userType.errors.required">Choose User Type</div>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="row">

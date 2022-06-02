@@ -12,7 +12,7 @@ import { FooterModule } from './shared/footer/footer.module';
 import { EntriesComponent } from './pages/entries/entries.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AddEntryComponent } from './components/add-entry/add-entry.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -28,6 +28,9 @@ import { AddAppUserComponent } from './components/add-app-user/add-app-user.comp
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AppPermissionDirective } from './core/directives/app-permission.directive';
 import { ViewEntryComponent } from './components/view-entry/view-entry.component';
+import { HttpHeaderInterceptor } from './core/interceptors/http.interceptor';
+import { SharedModule } from './shared.module';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -39,8 +42,8 @@ import { ViewEntryComponent } from './components/view-entry/view-entry.component
     BackupDatabaseComponent,
     DashboardComponent,
     AddAppUserComponent,
-    AppPermissionDirective,
     ViewEntryComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -59,10 +62,17 @@ import { ViewEntryComponent } from './components/view-entry/view-entry.component
     MatProgressSpinnerModule,
     MatTableModule,
     MatCheckboxModule,
+    SharedModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpHeaderInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  exports: [AppPermissionDirective],
+  exports: [],
 })
 export class AppModule {}

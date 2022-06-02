@@ -113,8 +113,19 @@
           <div class="col-md-12">
             <div class="form-group">
               <label>Subject</label>
-              <textarea class="form-control textarea" formControlName="subject">
+              <textarea
+                class="form-control textarea"
+                formControlName="subject"
+                required
+                [ngClass]="{ 'is-invalid': submitted && fc.subject.errors }"
+              >
               </textarea>
+              <div
+                *ngIf="submitted && fc.subject.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="fc.subject.errors.required">Type Subject</div>
+              </div>
             </div>
           </div>
         </div>

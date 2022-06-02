@@ -1,19 +1,28 @@
-<div class="row">
+<div class="">
   <div class="col-md-12">
     <div class="card">
-      <div class="card-header d-flex justify-content-between">
+      <div class="card-header pt-0 d-flex justify-content-between">
         <h4 class="card-title table-title">
           Entries
           <span class="count-span"> (About {{ dataLength }} results)</span>
         </h4>
-        <button
-          type="submit"
-          class="btn btn-primary btn-round"
-          (click)="onClickAddNew()"
-          *ngIf="authService.isAdmin()"
-        >
-          New
-        </button>
+        <div>
+          <button
+            type="submit"
+            class="filter-btn print-btn"
+            (click)="onPrint()"
+          >
+            Print
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary btn-round"
+            (click)="onClickAddNew()"
+            *appPermission="['entry.create']"
+          >
+            New
+          </button>
+        </div>
       </div>
       <!-- Progressbar start  -->
       <mat-progress-bar
@@ -21,20 +30,73 @@
         *ngIf="isLoadingFetchEntries"
       ></mat-progress-bar>
       <!-- Progress bar end  -->
-      <div class="card-body">
+      <div class="card-body p-0">
         <div class="mat-elevation-z8">
-          <form class="table-filter-form" [formGroup]="filterForm" novalidate>
-            <div class="form-group">
-              <input
-                type="text"
-                class="form-control"
-                formControlName="fromDate"
-                (keyup)="applyFilter($event)"
-                formControlName="searchKey"
-                placeholder="search..."
-              />
+          <div class="row">
+            <div class="col-md-4">
+              <form
+                class="table-filter-form"
+                [formGroup]="searchForm"
+                novalidate
+              >
+                <div class="form-group">
+                  <input
+                    type="text"
+                    class="form-control search-input"
+                    formControlName="fromDate"
+                    (keyup)="applyFilter($event)"
+                    formControlName="searchKey"
+                    placeholder="search..."
+                  />
+                </div>
+              </form>
             </div>
-          </form>
+
+            <div class="col-md-8">
+              <form
+                class="table-filter-form d-flex"
+                [formGroup]="filterForm"
+                (ngSubmit)="onSubmitDateFilter()"
+                novalidate
+              >
+                <div class="form-group date-selector">
+                  <input
+                    type="date"
+                    class="form-control search-input"
+                    formControlName="date_start"
+                    max="{{ ff.date_end.value | date: 'yyyy-MM-dd' }}"
+                  />
+                </div>
+                <div class="form-group date-selector">
+                  <input
+                    type="date"
+                    class="form-control search-input"
+                    formControlName="date_end"
+                    min="{{ ff.date_start.value | date: 'yyyy-MM-dd' }}"
+                  />
+                </div>
+                <div class="form-group date-selector">
+                  <button
+                    type="submit"
+                    class="filter-btn"
+                    *ngIf="authService.isAdmin()"
+                  >
+                    Filter
+                  </button>
+                </div>
+                <div class="form-group">
+                  <button
+                    type="button"
+                    class="filter-btn"
+                    (click)="onClickClearFilter()"
+                    *ngIf="authService.isAdmin()"
+                  >
+                    Clear
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
 
           <table
             mat-table
@@ -109,19 +171,30 @@
               <td mat-cell *matCellDef="let element">
                 <button
                   mat-button
+                  class="action-btn"
                   color="primary"
                   (click)="onEditEntry(element)"
-                  *ngIf="authService.isAdmin()"
+                  *appPermission="['entry.edit']"
                 >
                   Edit
                 </button>
                 <button
                   mat-button
+                  class="action-btn"
                   color="primary"
                   (click)="onViewEntry(element)"
-                  *ngIf="authService.isAdmin()"
+                  *appPermission="['entry.view']"
                 >
                   View
+                </button>
+                <button
+                  mat-button
+                  class="action-btn"
+                  color="primary"
+                  (click)="onDeleteEntry(element)"
+                  *appPermission="['entry.delete']"
+                >
+                  Delete
                 </button>
               </td>
             </ng-container>

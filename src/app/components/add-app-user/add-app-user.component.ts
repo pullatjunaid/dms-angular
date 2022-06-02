@@ -26,7 +26,7 @@ export class AddAppUserComponent implements OnInit {
   submitted = false;
   loadingSave: boolean = false;
 
-  passwordInputType: string = 'text';
+  passwordInputType: string = 'password';
   constructor(
     private customToster: customTosters,
     private userService: UserService,
@@ -44,7 +44,7 @@ export class AddAppUserComponent implements OnInit {
         Validators.required,
       ]),
       userType: new FormControl(
-        this.data?.user_type ? this.data.user_type : 'app_user',
+        this.data?.user_type ? this.data.user_type : '',
         [Validators.required]
       ),
       // password: new FormControl('', [Validators.required]),
@@ -56,9 +56,22 @@ export class AddAppUserComponent implements OnInit {
         'password',
         new FormControl('', [Validators.required])
       );
+      this.addUserForm.addControl(
+        'password_confirmation',
+        new FormControl('', [
+          Validators.required,
+          this.validateAreEqual.bind(this),
+        ])
+      );
     }
   }
-
+  private validateAreEqual(fieldControl: FormControl) {
+    return fieldControl.value === this.addUserForm.get('password')?.value
+      ? null
+      : {
+          NotEqual: true,
+        };
+  }
   get fc(): { [key: string]: AbstractControl } {
     return this.addUserForm.controls;
   }
@@ -66,7 +79,7 @@ export class AddAppUserComponent implements OnInit {
   onSubmitAppUser(): void {
     this.submitted = true;
     if (!this.addUserForm.valid) {
-      console.log(this.fc.email.errors);
+      console.log(this.fc.password_confirmation.errors);
       return;
     }
 

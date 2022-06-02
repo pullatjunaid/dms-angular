@@ -18,6 +18,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { AppUsersListComponent } from 'src/app/pages/app-users-list/app-users-list.component';
+import { SharedModule } from 'src/app/shared.module';
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -44,6 +45,7 @@ import { AppUsersListComponent } from 'src/app/pages/app-users-list/app-users-li
     MatButtonModule,
     MatProgressBarModule,
     MatSortModule,
+    SharedModule,
   ],
   declarations: [
     EntriesComponent,

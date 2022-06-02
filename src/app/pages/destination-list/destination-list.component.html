@@ -1,7 +1,7 @@
 <div class="">
   <div class="col-md-12">
     <div class="card">
-      <div class="card-header d-flex justify-content-between">
+      <div class="card-header pt-0 d-flex justify-content-between">
         <h4 class="card-title table-title">
           Destination List
           <span class="count-span"> (About {{ dataLength }} results)</span>
@@ -21,13 +21,13 @@
         *ngIf="isLoadingFetchDestinations"
       ></mat-progress-bar>
       <!-- Progress bar end  -->
-      <div class="card-body">
+      <div class="card-body p-0">
         <div class="mat-elevation-z8">
           <form class="table-filter-form" [formGroup]="filterForm" novalidate>
             <div class="form-group">
               <input
                 type="text"
-                class="form-control"
+                class="form-control search-input"
                 formControlName="fromDate"
                 (keyup)="applyFilter($event)"
                 formControlName="searchKey"

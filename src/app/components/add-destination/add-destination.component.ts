@@ -33,6 +33,10 @@ export class AddDestinationComponent implements OnInit {
       title: new FormControl(this.data?.title ? this.data.title : '', [
         Validators.required,
       ]),
+      shortname: new FormControl(
+        this.data?.shortname ? this.data.shortname : '',
+        [Validators.required]
+      ),
       description: new FormControl(
         this.data?.description ? this.data.description : '',
         []
@@ -56,6 +60,7 @@ export class AddDestinationComponent implements OnInit {
 
     let reqData = {
       title: this.fc.title.value,
+      shortname: this.fc.shortname.value,
       description: this.fc.description.value,
     };
     if (this.data?.id) {

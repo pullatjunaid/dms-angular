@@ -1,4 +1,4 @@
-<div class="row">
+<div class="">
   <div class="col-md-12">
     <div class="card">
       <div class="card-header d-flex justify-content-between">
@@ -9,6 +9,7 @@
           type="submit"
           class="btn btn-primary btn-round d-flex align-items-center"
           (click)="onClickBackupNow()"
+          *appPermission="['backup.view']"
         >
           {{ loadingBackup ? "Backuping" : "Backup Now" }}
           <mat-progress-spinner
