@@ -194,24 +194,27 @@ export class EntriesComponent implements OnInit {
         />
       </div>
       <div style="width: 50%; float: left; text-align: center">
-        <h2>PONDICHERRY UNIVERSITY</h2>
-        <span style="text-transform: capitalize"
-          >Department of computer science</span
-        >
+      <h2>PONDICHERRY UNIVERSITY</h2>
+      <span><b>School of Engineering & Technology</b></span>
+      <div style="height: 8px"></div>
+      <span><b>Department of Computer Science</b></span>
       </div>
       <div style="width: 25%; float: left"></div>
     </div>
     <div style="padding-top: 20px">
-      <div style="margin-bottom: 15px">
+      <div style="margin-bottom: 5px;text-align:center;font-weight:bold;font-size: 0.8em;">
       ${
         this.dateFilterFrom
-          ? 'Dispatch register for the period from ' +
-            formatDate(this.dateFilterFrom, 'yyyy-MM-dd', 'en-US') +
+          ? 'Dispatch Register for the period from ' +
+            formatDate(this.dateFilterFrom, 'dd-MMM-yyyy', 'en-US') +
             ' to ' +
-            formatDate(this.dateFilterTo, 'yyyy-MM-dd', 'en-US')
-          : ''
+            formatDate(this.dateFilterTo, 'dd-MMM-yyyy', 'en-US')
+          : 'Dispatch Register'
       }
          
+      </div>
+      <div style="margin-bottom: 15px;font-size: 0.9em">
+        Report Date: ${formatDate(new Date(), 'dd/MM/yyyy  hh:mm  a', 'en-US')}
       </div>
   
       <div style="margin-bottom: 15px; font-size: 0.9em; line-height: 22px">
@@ -223,7 +226,10 @@ export class EntriesComponent implements OnInit {
             width: 100%;
           "
         >
-          <tr>
+          <tr style="border-bottom: 2px solid black; border-top: 2px solid black">
+            <th style="border: 1px solid #dddddd; text-align: left; padding: 8px">
+              Sl. No.
+            </th>
             <th style="border: 1px solid #dddddd; text-align: left; padding: 8px">
               Ref. ID
             </th>
@@ -259,9 +265,12 @@ export class EntriesComponent implements OnInit {
 
   addRows() {
     let trs = '';
-    this.dataSource.filteredData.forEach((element) => {
+    this.dataSource.filteredData.forEach((element, index) => {
       trs += `
       <tr>
+      <td style="border: 1px solid #dddddd; text-align: left; padding: 8px">
+      ${index + 1}
+     </td>
       <td style="border: 1px solid #dddddd; text-align: left; padding: 8px">
        ${element?.id}
       </td>

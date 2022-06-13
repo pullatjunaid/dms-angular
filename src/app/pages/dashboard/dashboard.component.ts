@@ -34,7 +34,10 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.fetchDashboardData();
     this.fetchEntriesList();
+    this.onClickBackupnow();
   }
+
+  onClickBackupnow() {}
 
   private fetchEntriesList() {
     this.entryService

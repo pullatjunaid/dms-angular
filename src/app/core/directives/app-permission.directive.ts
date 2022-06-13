@@ -1,5 +1,6 @@
 import {
   Directive,
+  Injectable,
   Input,
   OnDestroy,
   OnInit,
@@ -10,6 +11,9 @@ import { Subject, Subscription } from 'rxjs';
 
 @Directive({
   selector: '[appPermission]',
+})
+@Injectable({
+  providedIn: 'root',
 })
 export class AppPermissionDirective implements OnInit, OnDestroy {
   private subscription: Subscription[] = [];

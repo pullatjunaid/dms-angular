@@ -73,7 +73,9 @@
           <div class="col-12 col-md-12">
             <div class="numbers">
               <p class="card-category">Last Backup</p>
-              <p class="card-title">05 May 2022</p>
+              <p class="card-title">
+                {{ dashboardData?.lastBackup?.created_at | date }}
+              </p>
               <p></p>
             </div>
           </div>
@@ -81,7 +83,15 @@
       </div>
       <div class="card-footer">
         <hr />
-        <div class="stats"><i class="fa fa-refresh"></i> Backup Now</div>
+        <div class="stats" (click)="onClickBackupnow()">
+          <!-- <i class="fa fa-refresh"></i> Backup Now -->
+          <a
+            routerLink="/backup-database"
+            routerLinkActive="active"
+            ariaCurrentWhenActive="page"
+            ><i class="fa fa-refresh"></i>Backup Now</a
+          >
+        </div>
       </div>
     </div>
   </div>

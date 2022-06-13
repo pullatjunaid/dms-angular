@@ -30,6 +30,25 @@ export class AuthService {
     else return false;
   }
 
+  hasPermission(requestedPermissions: Array<string>) {
+    var permissions = localStorage.getItem('permissions');
+    let canAccess: boolean = false;
+    if (permissions) {
+      var parsedPermissionsList = JSON.parse(permissions);
+      const idx = parsedPermissionsList.findIndex(
+        (element: any) => requestedPermissions.indexOf(element.name) !== -1
+      );
+      if (idx < 0) {
+        canAccess = false;
+      } else {
+        // appends the ref element to DOM
+        canAccess = true;
+      }
+    }
+
+    return canAccess;
+  }
+
   login(data: { username: string; password: string }) {
     return this.http.post(`${this.baseUrl}/login`, data);
   }

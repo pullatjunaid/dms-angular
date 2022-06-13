@@ -87,6 +87,7 @@
                   class="action-btn"
                   color="primary"
                   (click)="onEditappUser(element)"
+                  *appPermission="['appUser.edit']"
                 >
                   Edit
                 </button>
@@ -95,6 +96,7 @@
                   class="action-btn"
                   color="primary"
                   (click)="onResetPassword(element)"
+                  *appPermission="['appUser.resetPassword']"
                 >
                   Reset Password
                 </button>

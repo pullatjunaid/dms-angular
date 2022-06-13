@@ -21,9 +21,9 @@ export class DestinationListComponent implements OnInit {
   displayedColumns: string[] = [
     'slNo',
     'title',
-    'created_at',
     'description',
-    'actions',
+    'shortname',
+    'created_at',
   ];
   isLoadingFetchDestinations: boolean = false;
   dataLength: number = 0;
@@ -44,6 +44,8 @@ export class DestinationListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    if (this.authService.hasPermission(['destination.edit']))
+      this.displayedColumns.push('actions');
     this.filterForm = new FormGroup({
       searchKey: new FormControl('', []),
     });

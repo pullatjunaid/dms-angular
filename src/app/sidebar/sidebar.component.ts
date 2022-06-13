@@ -29,13 +29,30 @@ export class SidebarComponent implements OnInit {
   constructor(public authService: AuthService) {}
 
   ngOnInit(): void {
-    if (this.authService.isAdmin()) {
+    if (
+      this.authService.hasPermission([
+        'backup.create',
+        'backup.delete',
+        'backup.edit',
+        'backup.view',
+      ])
+    ) {
       ROUTES.push({
         path: '/backup-database',
         title: 'Backup Database',
         icon: 'backup',
         class: '',
       });
+    }
+    if (
+      this.authService.hasPermission([
+        'appUser.create',
+        'appUser.delete',
+        'appUser.edit',
+        'appUser.view',
+        'appUser.resetPassword',
+      ])
+    ) {
       ROUTES.push({
         path: '/app-users',
         title: 'App Users',
