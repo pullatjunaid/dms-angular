@@ -1,3 +1,13 @@
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #4c5594;
+}
+
 .login-main {
   background-color: #f4f3ef;
   .login-container {
@@ -6,17 +16,12 @@
 }
 
 .form-error-message {
-  color: red;
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 0.875em;
+  color: #dc3545;
 }
 
-html,
-body {
-  height: 100%;
-}
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-}
 .card-user {
   max-width: 500px;
 }
@@ -24,5 +29,69 @@ body {
   padding-bottom: 5px;
   padding-top: 5px;
   height: 35px;
-  border-radius: 5px;
+  border-radius: 3px !important;
+}
+
+.card-title {
+  font-size: 1em !important;
+  line-height: 1.45em;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  .count-span {
+    font-size: 0.6em;
+  }
+}
+.table-title {
+  font-size: 1.714em !important;
+  line-height: 1.45em;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  .count-span {
+    font-size: 0.6em;
+  }
+}
+.mandatory-text {
+  color: red;
+  font-size: 1.5em;
+}
+.toast-success {
+  background-color: #000 !important;
+}
+.table-filter-form {
+  padding-top: 20px;
+  padding-left: 20px;
+  width: 300px;
+
+  .form-control {
+    color: #000;
+  }
+}
+.spinner {
+  margin-left: 5px;
+}
+
+.visibility-checkbox {
+  margin-top: 37px;
+}
+.mat-dialog-container {
+  max-height: 90vh !important;
+  max-width: 700px !important;
+}
+
+.search-input {
+  padding: 5px 10px 5px 10px !important;
+  background: rgba(9, 30, 66, 0.04) !important;
+}
+
+.filter-btn {
+  background: rgba(9, 30, 66, 0.04) !important;
+  color: #000 !important;
+  border: 1px solid #dddddd !important;
+  border-radius: 4px;
+  height: 29px;
+  padding: 0px 20px 0px 20px;
+}
+
+.print-btn {
+  margin-right: 5px;
 }

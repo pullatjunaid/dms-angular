@@ -11,16 +11,17 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loginErrorMessage: string = '';
+  isLoadingLogin: boolean = false;
 
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    this.authService.doSignup().subscribe((res) => {
-      console.log(res);
-    });
+    // this.authService.doSignup().subscribe((res) => {});
     this.loginForm = new FormGroup({
-      username: new FormControl('admin@gmail.com', [Validators.required]),
-      password: new FormControl('admin123', [Validators.required]),
+      // username: new FormControl('admin@gmail.com', [Validators.required]),
+      // password: new FormControl('admin123', [Validators.required]),
+      username: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required]),
     });
   }
 
@@ -28,6 +29,7 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
     }
+    this.isLoadingLogin = true;
     this.authService
       .login({
         username: this.loginForm.value.username,
@@ -35,13 +37,16 @@ export class LoginComponent implements OnInit {
       })
       .subscribe(
         (res: any) => {
-          console.log(res);
+          this.isLoadingLogin = false;
           localStorage.setItem('api_token', res?.api_token);
-          this.router.navigate(['/dashboard']);
+          localStorage.setItem('userDetails', JSON.stringify(res?.user));
+          localStorage.setItem('permissions', JSON.stringify(res?.permissions));
+          // this.router.navigate(['/dashboard']);
+          window.location.href = '/dashboard';
         },
         (err: any) => {
+          this.isLoadingLogin = false;
           this.loginErrorMessage = err.error.errors.message;
-          console.log(err);
         }
       );
   }

@@ -1,19 +1,21 @@
-<div class="row">
+<div class="row modal-container">
   <div class="card">
     <div class="card-header">
       <h4 class="card-title">Add New Entry</h4>
+      <h4 class="new-entry-id">{{ newEntryId }}</h4>
     </div>
     <div class="card-body">
       <form [formGroup]="entryForm" (ngSubmit)="onSubmitEntry()" novalidate>
         <div class="row">
           <div class="col-md-6 pr-1">
             <div class="form-group">
-              <label>From Date</label>
+              <label>From Date<span class="mandatory-text">*</span></label>
               <input
                 type="date"
                 class="form-control"
                 formControlName="fromDate"
                 [ngClass]="{ 'is-invalid': submitted && fc.fromDate.errors }"
+                (change)="onFromDateChange()"
                 required
               />
               <div
@@ -28,11 +30,16 @@
           </div>
           <div class="col-md-6 pl-1">
             <div class="form-group">
-              <label>To Date</label>
+              <label
+                >To Date
+                <span class="mandatory-text">*</span>
+                ></label
+              >
               <input
                 type="date"
                 class="form-control"
                 formControlName="toDate"
+                min="{{ fc.fromDate.value | date: 'yyyy-MM-dd' }}"
                 [ngClass]="{ 'is-invalid': submitted && fc.toDate.errors }"
                 required
               />
@@ -49,15 +56,21 @@
         <div class="row">
           <div class="col-md-6 pr-1">
             <div class="form-group">
-              <label>From Whom</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="From Whom"
+              <label>From Whom <span class="mandatory-text">*</span></label>
+              <select
+                class="custom-select form-control"
                 formControlName="fromWhom"
                 required
                 [ngClass]="{ 'is-invalid': submitted && fc.fromWhom.errors }"
-              />
+              >
+                <option selected value="">Choose...</option>
+                <option
+                  *ngFor="let dest of destinationList"
+                  [value]="dest['id']"
+                >
+                  {{ dest["title"] }}
+                </option>
+              </select>
               <div
                 *ngIf="submitted && fc.fromWhom.errors"
                 class="invalid-feedback"
@@ -70,15 +83,22 @@
           </div>
           <div class="col-md-6 pl-1">
             <div class="form-group">
-              <label>To Whom</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="To Whom"
+              <label>To Whom <span class="mandatory-text">*</span></label>
+
+              <select
+                class="custom-select form-control"
                 formControlName="toWhom"
                 required
                 [ngClass]="{ 'is-invalid': submitted && fc.toWhom.errors }"
-              />
+              >
+                <option selected value="">Choose...</option>
+                <option
+                  *ngFor="let dest of destinationList"
+                  [value]="dest['id']"
+                >
+                  {{ dest["title"] }}
+                </option>
+              </select>
               <div
                 *ngIf="submitted && fc.toWhom.errors"
                 class="invalid-feedback"
@@ -93,21 +113,43 @@
           <div class="col-md-12">
             <div class="form-group">
               <label>Subject</label>
-              <textarea class="form-control textarea" formControlName="subject">
+              <textarea
+                class="form-control textarea"
+                formControlName="subject"
+                required
+                [ngClass]="{ 'is-invalid': submitted && fc.subject.errors }"
+              >
               </textarea>
+              <div
+                *ngIf="submitted && fc.subject.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="fc.subject.errors.required">Type Subject</div>
+              </div>
             </div>
           </div>
         </div>
         <div class="row">
-          <div class="update ml-auto mr-auto">
-            <button type="submit" class="btn btn-primary btn-round">
-              Save
-            </button>
+          <div class="update ml-auto mr-auto d-flex align-items-center">
             <button
               type="submit"
+              class="btn btn-primary btn-round d-flex align-items-center"
+            >
+              {{ data?.id ? "Update" : "Save" }}
+              <mat-progress-spinner
+                class="spinner ml-5"
+                mode="indeterminate"
+                diameter="20"
+                color="accent"
+                *ngIf="loadingSave"
+              >
+              </mat-progress-spinner>
+            </button>
+            <button
+              type="button"
               class="btn btn-secondary btn-round"
               mat-button
-              [mat-dialog-close]="true"
+              [mat-dialog-close]="false"
             >
               Discard
             </button>

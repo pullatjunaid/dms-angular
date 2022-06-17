@@ -2,11 +2,11 @@
   <div class="logo">
     <a href="http://www.creative-tim.com" class="simple-text logo-mini">
       <div class="logo-image-small">
-        <img src="assets/img/angular2-logo.png" />
+        <img src="assets/img/PU_Logo-white-150x150.png" />
       </div>
     </a>
     <a href="https://www.creative-tim.com" class="simple-text logo-normal">
-      DMS | SET | DCS
+      DMS | DCS | SET
     </a>
   </div>
   <ul class="nav">
@@ -15,8 +15,9 @@
       routerLinkActive="active"
       class="{{ menuItem.class }}"
     >
-      <a [routerLink]="[menuItem.path]">
-        <i class="nc-icon {{ menuItem.icon }}"></i>
+      <a class="d-flex side-menu-item" [routerLink]="[menuItem.path]">
+        <!-- <i class="nc-icon {{ menuItem.icon }}"></i> -->
+        <span class="material-icons">{{ menuItem.icon }}</span>
         <p>{{ menuItem.title }}</p>
       </a>
     </li>

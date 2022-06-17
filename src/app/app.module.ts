@@ -12,7 +12,7 @@ import { FooterModule } from './shared/footer/footer.module';
 import { EntriesComponent } from './pages/entries/entries.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AddEntryComponent } from './components/add-entry/add-entry.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -20,6 +20,17 @@ import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { DestinationListComponent } from './pages/destination-list/destination-list.component';
 import { AddDestinationComponent } from './components/add-destination/add-destination.component';
+import { BackupDatabaseComponent } from './pages/backup-database/backup-database.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { MatTableModule } from '@angular/material/table';
+import { AddAppUserComponent } from './components/add-app-user/add-app-user.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { AppPermissionDirective } from './core/directives/app-permission.directive';
+import { ViewEntryComponent } from './components/view-entry/view-entry.component';
+import { HttpHeaderInterceptor } from './core/interceptors/http.interceptor';
+import { SharedModule } from './shared.module';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -28,13 +39,17 @@ import { AddDestinationComponent } from './components/add-destination/add-destin
     LoginComponent,
     AddEntryComponent,
     AddDestinationComponent,
+    BackupDatabaseComponent,
+    DashboardComponent,
+    AddAppUserComponent,
+    ViewEntryComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserAnimationsModule,
     AppRoutingModule,
     SidebarModule,
     NavbarModule,
-    ToastrModule.forRoot(),
     FooterModule,
     ReactiveFormsModule,
     HttpClientModule,
@@ -43,9 +58,21 @@ import { AddDestinationComponent } from './components/add-destination/add-destin
     MatNativeDateModule,
     MatFormFieldModule,
     MatRippleModule,
+    ToastrModule.forRoot(),
+    MatProgressSpinnerModule,
+    MatTableModule,
+    MatCheckboxModule,
+    SharedModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpHeaderInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  exports: [],
 })
 export class AppModule {}

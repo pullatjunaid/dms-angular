@@ -1,0 +1,126 @@
+<div class="">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header pt-0 d-flex justify-content-between">
+        <h4 class="card-title table-title">
+          App Users
+          <span class="count-span"> (About {{ dataLength }} results)</span>
+        </h4>
+        <button
+          type="submit"
+          class="btn btn-primary btn-round"
+          (click)="onClickAddNew()"
+        >
+          New User
+        </button>
+      </div>
+      <!-- Progressbar start  -->
+      <mat-progress-bar
+        mode="indeterminate"
+        *ngIf="isLoadingFetchAppUsers"
+      ></mat-progress-bar>
+      <!-- Progress bar end  -->
+      <div class="card-body p-0">
+        <div class="mat-elevation-z8">
+          <form class="table-filter-form" [formGroup]="filterForm" novalidate>
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control search-input"
+                formControlName="fromDate"
+                (keyup)="applyFilter($event)"
+                formControlName="searchKey"
+                placeholder="search..."
+              />
+            </div>
+          </form>
+          <table
+            mat-table
+            [dataSource]="dataSource"
+            matSort
+            (matSortChange)="sortChange($event)"
+          >
+            <!-- SL Number Column -->
+            <ng-container matColumnDef="slNo">
+              <th mat-header-cell *matHeaderCellDef>#</th>
+              <td
+                mat-cell
+                *matCellDef="let element; let i = index"
+                class="td-sl-no"
+              >
+                {{ i + 1 }}
+              </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.name }}
+              </td>
+            </ng-container>
+
+            <!-- Email Column -->
+            <ng-container matColumnDef="email">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.email }}
+              </td>
+            </ng-container>
+
+            <!-- User type Column -->
+            <ng-container matColumnDef="user_type">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                User Type
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ getUserTypeText(element.user_type) }}
+              </td>
+            </ng-container>
+
+            <!-- actions Column  -->
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef>Actions</th>
+              <td mat-cell *matCellDef="let element">
+                <button
+                  mat-button
+                  class="action-btn"
+                  color="primary"
+                  (click)="onEditappUser(element)"
+                  *appPermission="['appUser.edit']"
+                >
+                  Edit
+                </button>
+                <button
+                  mat-button
+                  class="action-btn"
+                  color="primary"
+                  (click)="onResetPassword(element)"
+                  *appPermission="['appUser.resetPassword']"
+                >
+                  Reset Password
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
+          <!-- <div *ngIf="!dataSource || dataSource.length < 1">
+                Not entries found
+              </div> -->
+          <mat-paginator
+            #paginator
+            [length]="dataLength"
+            [pageIndex]="pageNumber - 1"
+            [pageSize]="perPage"
+            [pageSizeOptions]="[10, 20, 30, 50, 100]"
+            (page)="handlePage($event)"
+            showFirstLastButtons
+          >
+          </mat-paginator>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

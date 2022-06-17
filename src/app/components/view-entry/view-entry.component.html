@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="" id="entry-details-card">
+      <div class="card-header">
+        <h3 class="title">
+          <b>REF. ID: </b>{{ data?.ref_id }}
+          <span class="print-text" (click)="onPrint()">Print</span>
+        </h3>
+        <h3>
+          <b>Date:</b> {{ data?.from_date | date }} <b>-</b>
+          {{ data?.to_date | date }}
+        </h3>
+        <span
+          ><b>From:</b> {{ data?.from_whom?.title }}
+          <b>To:</b>
+          {{ data?.to_whom?.title }}</span
+        >
+      </div>
+      <div class="card-body">
+        <p>
+          <b>Subject:</b><br />
+          {{ data?.subject }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

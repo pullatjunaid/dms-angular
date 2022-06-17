@@ -1,0 +1,159 @@
+<div class="row">
+  <!-- totla entries start -->
+  <div class="col-lg-3 col-md-6 col-sm-6">
+    <div class="card card-stats">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-5 col-md-4"></div>
+          <div class="col-7 col-md-8">
+            <div class="numbers">
+              <p class="card-category">Entries</p>
+              <p class="card-title">{{ dashboardData?.totalEntries }}</p>
+              <p></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <hr />
+        <div class="stats">Total Entries</div>
+      </div>
+    </div>
+  </div>
+  <!-- totla entries end  -->
+  <!-- total entries last month start  -->
+  <div class="col-lg-3 col-md-6 col-sm-6">
+    <div class="card card-stats">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-5 col-md-4"></div>
+          <div class="col-7 col-md-8">
+            <div class="numbers">
+              <p class="card-category">Last Month</p>
+              <p class="card-title">{{ dashboardData?.totalEntries }}</p>
+              <p></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <hr />
+        <div class="stats">Total Entries</div>
+      </div>
+    </div>
+  </div>
+  <!-- total entries last month end  -->
+  <!-- totla destination start -->
+  <div class="col-lg-3 col-md-6 col-sm-6">
+    <div class="card card-stats">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-5 col-md-4"></div>
+          <div class="col-7 col-md-8">
+            <div class="numbers">
+              <p class="card-category">Destinations</p>
+              <p class="card-title">{{ dashboardData?.totalDestinations }}</p>
+              <p></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <hr />
+        <div class="stats">Total Destinations</div>
+      </div>
+    </div>
+  </div>
+  <!-- totla destination end -->
+  <!-- Last backup start  -->
+  <div class="col-lg-3 col-md-6 col-sm-6">
+    <div class="card card-stats">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12 col-md-12">
+            <div class="numbers">
+              <p class="card-category">Last Backup</p>
+              <p class="card-title">
+                {{ dashboardData?.lastBackup?.created_at | date }}
+              </p>
+              <p></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <hr />
+        <div class="stats" (click)="onClickBackupnow()">
+          <!-- <i class="fa fa-refresh"></i> Backup Now -->
+          <a
+            routerLink="/backup-database"
+            routerLinkActive="active"
+            ariaCurrentWhenActive="page"
+            ><i class="fa fa-refresh"></i>Backup Now</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Last backup end  -->
+
+  <!-- Latest entries  -->
+  <div class="">
+    <div class="card">
+      <div class="card-header pt-0 d-flex justify-content-between">
+        <h4 class="card-title table-title">Latest Entries</h4>
+      </div>
+      <div class="card-body p-0">
+        <div class="mat-elevation-z8">
+          <table mat-table [dataSource]="dataSource">
+            <!-- SL Number Column -->
+            <ng-container matColumnDef="slNo">
+              <th mat-header-cell *matHeaderCellDef>#</th>
+              <td mat-cell *matCellDef="let element; let i = index">
+                {{ i + 1 }}
+              </td>
+            </ng-container>
+
+            <!-- ref id Column -->
+            <ng-container matColumnDef="ref_id">
+              <th mat-header-cell *matHeaderCellDef>Ref ID</th>
+              <td mat-cell *matCellDef="let element" class="td-ref-id">
+                {{ element.ref_id }}
+              </td>
+            </ng-container>
+
+            <!-- from whom Column -->
+            <ng-container matColumnDef="from_whom">
+              <th mat-header-cell *matHeaderCellDef>From</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.from_whom?.title }}
+              </td>
+            </ng-container>
+
+            <!-- to whom Column -->
+            <ng-container matColumnDef="to_whom">
+              <th mat-header-cell *matHeaderCellDef>To</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.to_whom?.title }}
+              </td>
+            </ng-container>
+
+            <!-- Date Column -->
+            <ng-container matColumnDef="created_at">
+              <th mat-header-cell *matHeaderCellDef>Date</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.created_at | date }}
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
+          <!-- <div *ngIf="!dataSource || dataSource.length < 1">
+            Not entries found
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

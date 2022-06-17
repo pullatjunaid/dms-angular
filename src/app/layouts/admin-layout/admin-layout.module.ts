@@ -13,10 +13,21 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSortModule } from '@angular/material/sort';
+import { AppUsersListComponent } from 'src/app/pages/app-users-list/app-users-list.component';
+import { SharedModule } from 'src/app/shared.module';
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  entryComponents: [EntriesComponent, DestinationListComponent],
+  entryComponents: [
+    EntriesComponent,
+    DestinationListComponent,
+    AppUsersListComponent,
+  ],
+
   imports: [
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
@@ -29,8 +40,17 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatDatepickerModule,
     MatNativeDateModule,
     MatFormFieldModule,
+    MatInputModule,
     MatRippleModule,
+    MatButtonModule,
+    MatProgressBarModule,
+    MatSortModule,
+    SharedModule,
   ],
-  declarations: [EntriesComponent, DestinationListComponent],
+  declarations: [
+    EntriesComponent,
+    DestinationListComponent,
+    AppUsersListComponent,
+  ],
 })
 export class AdminLayoutModule {}

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../core/services/auth/auth.service';
 
 export interface RouteInfo {
   path: string;
@@ -8,23 +9,14 @@ export interface RouteInfo {
 }
 
 export const ROUTES: RouteInfo[] = [
-  { path: '/dashboard', title: 'Dashboard', icon: 'nc-bank', class: '' },
-  { path: '/dashboard', title: 'Entries', icon: 'nc-tile-56', class: '' },
+  { path: '/dashboard', title: 'Dashboard', icon: 'dashboard', class: '' },
+  { path: '/entries', title: 'Entries', icon: 'list', class: '' },
   {
     path: '/destination',
     title: 'Destination',
-    icon: 'nc-caps-small',
+    icon: 'location_on',
     class: '',
   },
-  { path: '/maps', title: 'Maps', icon: 'nc-pin-3', class: '' },
-  {
-    path: '/notifications',
-    title: 'Notifications',
-    icon: 'nc-bell-55',
-    class: '',
-  },
-  { path: '/user', title: 'User Profile', icon: 'nc-single-02', class: '' },
-  { path: '/table', title: 'Table List', icon: 'nc-tile-56', class: '' },
 ];
 
 @Component({
@@ -34,9 +26,41 @@ export const ROUTES: RouteInfo[] = [
 })
 export class SidebarComponent implements OnInit {
   menuItems: any[] = [];
-  constructor() {}
+  constructor(public authService: AuthService) {}
 
   ngOnInit(): void {
+    if (
+      this.authService.hasPermission([
+        'backup.create',
+        'backup.delete',
+        'backup.edit',
+        'backup.view',
+      ])
+    ) {
+      ROUTES.push({
+        path: '/backup-database',
+        title: 'Backup Database',
+        icon: 'backup',
+        class: '',
+      });
+    }
+    if (
+      this.authService.hasPermission([
+        'appUser.create',
+        'appUser.delete',
+        'appUser.edit',
+        'appUser.view',
+        'appUser.resetPassword',
+      ])
+    ) {
+      ROUTES.push({
+        path: '/app-users',
+        title: 'App Users',
+        icon: 'supervised_user_circle',
+        class: '',
+      });
+    }
+
     this.menuItems = ROUTES.filter((menuItem) => menuItem);
   }
 }

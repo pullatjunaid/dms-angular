@@ -1,0 +1,33 @@
+table {
+  width: 100%;
+}
+tr.mat-row,
+tr.mat-footer-row {
+  height: 35px;
+}
+
+.td-sl-no {
+  width: 60px;
+}
+
+.mat-row:nth-child(odd) {
+  background-color: #bdd5f9;
+}
+
+.action-btn {
+  min-width: 40px;
+  padding: 0px 0px;
+  text-align: start;
+}
+
+.mat-column-user_type {
+  max-width: 60px;
+}
+
+.mat-column-email {
+  width: 200px;
+}
+
+.mat-column-name {
+  width: 200px;
+}

@@ -1,0 +1,12 @@
+.card-header {
+  .title {
+    position: relative;
+
+    .print-text {
+      position: absolute;
+      right: 0;
+      color: blue;
+      cursor: pointer;
+    }
+  }
+}

@@ -1,0 +1,17 @@
+table {
+  width: 100%;
+}
+tr.mat-row,
+tr.mat-footer-row {
+  height: 35px;
+}
+.td-ref-id {
+  cursor: pointer;
+}
+
+.mat-row:nth-child(even) {
+}
+
+.mat-row:nth-child(odd) {
+  background-color: #bdd5f9;
+}
