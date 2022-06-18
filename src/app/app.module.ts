@@ -31,6 +31,7 @@ import { ViewEntryComponent } from './components/view-entry/view-entry.component
 import { HttpHeaderInterceptor } from './core/interceptors/http.interceptor';
 import { SharedModule } from './shared.module';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
       useClass: HttpHeaderInterceptor,
       multi: true,
     },
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
