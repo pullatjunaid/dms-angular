@@ -71,7 +71,6 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
       useClass: HttpHeaderInterceptor,
       multi: true,
     },
-    { provide: LocationStrategy, useClass: HashLocationStrategy },
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
