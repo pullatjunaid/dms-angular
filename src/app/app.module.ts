@@ -32,6 +32,7 @@ import { HttpHeaderInterceptor } from './core/interceptors/http.interceptor';
 import { SharedModule } from './shared.module';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     AddAppUserComponent,
     ViewEntryComponent,
     ResetPasswordComponent,
+    ChangePasswordComponent,
   ],
   imports: [
     BrowserAnimationsModule,

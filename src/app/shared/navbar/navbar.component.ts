@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ROUTES } from '../../sidebar/sidebar.component';
 import { Location } from '@angular/common';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
@@ -21,7 +21,8 @@ export class NavbarComponent implements OnInit {
     private renderer: Renderer2,
     private element: ElementRef,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private activatedRoute: ActivatedRoute
   ) {
     this.location = location;
     this.nativeElement = element.nativeElement;
@@ -46,7 +47,17 @@ export class NavbarComponent implements OnInit {
         return this.listTitles[item].title;
       }
     }
-    return 'Dashboard';
+    console.log(this.router.routerState.snapshot.url);
+    let url = this.router.routerState.snapshot.url;
+    url = url.replace('/', '');
+    const result = url.split('-');
+    console.log(result);
+    let title = '';
+    result.forEach((word) => {
+      title += word + ' ';
+    });
+    console.log(title);
+    return title;
   }
   sidebarToggle() {
     if (this.sidebarVisible === false) {
@@ -109,5 +120,9 @@ export class NavbarComponent implements OnInit {
         console.log(err);
       }
     );
+  }
+
+  onClickViewProfile(): void {
+    this.router.navigate(['/my-profile']);
   }
 }

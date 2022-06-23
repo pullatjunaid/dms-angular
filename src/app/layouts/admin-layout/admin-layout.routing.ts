@@ -5,6 +5,7 @@ import { BackupDatabaseComponent } from 'src/app/pages/backup-database/backup-da
 import { DashboardComponent } from 'src/app/pages/dashboard/dashboard.component';
 import { DestinationListComponent } from 'src/app/pages/destination-list/destination-list.component';
 import { EntriesComponent } from 'src/app/pages/entries/entries.component';
+import { ProfileComponent } from 'src/app/pages/profile/profile.component';
 
 export const AdminLayoutRoutes: Routes = [
   {
@@ -26,6 +27,11 @@ export const AdminLayoutRoutes: Routes = [
   {
     path: 'app-users',
     component: AppUsersListComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'my-profile',
+    component: ProfileComponent,
     canActivate: [AuthGuard],
   },
 ];

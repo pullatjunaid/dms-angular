@@ -19,6 +19,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { AppUsersListComponent } from 'src/app/pages/app-users-list/app-users-list.component';
 import { SharedModule } from 'src/app/shared.module';
+import { ProfileComponent } from '../../pages/profile/profile.component';
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -26,6 +27,7 @@ import { SharedModule } from 'src/app/shared.module';
     EntriesComponent,
     DestinationListComponent,
     AppUsersListComponent,
+    ProfileComponent,
   ],
 
   imports: [
@@ -51,6 +53,7 @@ import { SharedModule } from 'src/app/shared.module';
     EntriesComponent,
     DestinationListComponent,
     AppUsersListComponent,
+    ProfileComponent,
   ],
 })
 export class AdminLayoutModule {}
