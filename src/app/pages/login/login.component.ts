@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('permissions', JSON.stringify(res?.permissions));
           // this.router.navigate(['/dashboard']);
           // window.location.href = '/dms/dashboard';
-          window.location.href = '/';
+          window.location.reload();
         },
         (err: any) => {
           this.isLoadingLogin = false;
