@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DashboardService {
-  baseUrl = 'http://127.0.0.1:8000/api';
+  baseUrl = environment.apiBaseUrl;
   constructor(private http: HttpClient) {}
 
   loadDashboardData() {

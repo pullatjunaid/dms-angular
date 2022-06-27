@@ -41,9 +41,8 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('api_token', res?.api_token);
           localStorage.setItem('userDetails', JSON.stringify(res?.user));
           localStorage.setItem('permissions', JSON.stringify(res?.permissions));
-          // this.router.navigate(['/dashboard']);
-          // window.location.href = '/dms/dashboard';
-          window.location.reload();
+          this.router.navigate(['/dashboard']);
+          // window.location.href = '/dms';
         },
         (err: any) => {
           this.isLoadingLogin = false;

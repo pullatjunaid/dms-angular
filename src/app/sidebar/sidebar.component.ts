@@ -8,15 +8,15 @@ export interface RouteInfo {
   class: string;
 }
 
-export const ROUTES: RouteInfo[] = [
-  { path: '/dashboard', title: 'Dashboard', icon: 'dashboard', class: '' },
-  { path: '/entries', title: 'Entries', icon: 'list', class: '' },
-  {
-    path: '/destination',
-    title: 'Destination',
-    icon: 'location_on',
-    class: '',
-  },
+export var ROUTES: RouteInfo[] = [
+  // { path: '/dashboard', title: 'Dashboard', icon: 'dashboard', class: '' },
+  // { path: '/entries', title: 'Entries', icon: 'list', class: '' },
+  // {
+  //   path: '/destination',
+  //   title: 'Destination',
+  //   icon: 'location_on',
+  //   class: '',
+  // },
 ];
 
 @Component({
@@ -29,6 +29,17 @@ export class SidebarComponent implements OnInit {
   constructor(public authService: AuthService) {}
 
   ngOnInit(): void {
+    ROUTES = [
+      { path: '/dashboard', title: 'Dashboard', icon: 'dashboard', class: '' },
+      { path: '/entries', title: 'Entries', icon: 'list', class: '' },
+      {
+        path: '/destination',
+        title: 'Destination',
+        icon: 'location_on',
+        class: '',
+      },
+    ];
+
     if (
       this.authService.hasPermission([
         'backup.create',
