@@ -47,8 +47,11 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('userDetails', JSON.stringify(res?.user));
           localStorage.setItem('permissions', JSON.stringify(res?.permissions));
           this.customToster.simpleToaster('Welcome to DMS');
-          this.router.navigate(['/dashboard']);
-          window.location.href = '/';
+          // this.router.navigate(['/dashboard']);
+          console.log('logged in');
+          // window.location.href = '/';
+          window.location.reload();
+          console.log('logged in reloaded');
         },
         (err: any) => {
           this.isLoadingLogin = false;

@@ -110,6 +110,9 @@ export class NavbarComponent implements OnInit {
   }
 
   onClickLogout(): void {
+    localStorage.removeItem('api_token');
+    window.location.reload();
+
     this.authService.logout().subscribe(
       (res) => {
         console.log(res);
